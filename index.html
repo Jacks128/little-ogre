@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#26321f">
+<title>A Little Ogre</title>
+<meta name="description" content="A little ogre is on the way — Majo y Renzo te invitan a su gender reveal.">
+<meta property="og:title" content="A little ogre is on the way 🌿">
+<meta property="og:description" content="Majo & Renzo te invitan a su gender reveal.">
+<meta property="og:image" content="img/pareja-1.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fbf8f1;
+  --cream:#f4eee2;
+  --cream-2:#ebe3d2;
+  --sage-wash:#e6e9dc;
+  --sage:#9fb08a;
+  --sage-deep:#6f8358;
+  --moss-950:#171f14;
+  --moss-900:#1f2a1b;
+  --moss-800:#26321f;
+  --moss-700:#384830;
+  --gold:#b59457;
+  --gold-soft:#d6bf8f;
+  --gold-line:rgba(181,148,87,.45);
+  --blush:#ecd3cd;
+  --blush-deep:#b9807a;
+  --powder:#d3dfe6;
+  --powder-deep:#6f8fa6;
+  --ink:#2c3126;
+  --ink-soft:#6b6e5f;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',system-ui,sans-serif;
+  --script:'Pinyon Script',cursive;
+  --shadow:0 18px 40px -24px rgba(31,42,27,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--moss-950);line-height:1.6;overflow-x:hidden}
+body.locked{overflow:hidden}
+img{max-width:100%;display:block}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+a{color:inherit}
+b,strong{font-weight:500}
+
+.app{max-width:480px;margin:0 auto;background:var(--paper);position:relative;overflow:hidden;min-height:100vh;box-shadow:0 0 80px rgba(0,0,0,.5)}
+/* grano de papel */
+.app::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:60;opacity:.07;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.25 0 0 0 0 0.15 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.1}
+.eyebrow{font-family:var(--sans);font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;font-weight:400;color:var(--gold)}
+.script{font-family:var(--script);font-weight:400}
+.ico{width:1em;height:1em;display:inline-block;vertical-align:-.12em;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Botones ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 28px;border-radius:999px;font-family:var(--sans);font-weight:400;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;
+  background:var(--moss-800);color:var(--cream);text-decoration:none;
+  transition:transform .2s, background .2s, box-shadow .2s;position:relative;z-index:1;
+  box-shadow:0 10px 24px -14px rgba(31,42,27,.8)
+}
+.btn:active{transform:scale(.98)}
+.btn.light{background:var(--cream);color:var(--moss-800)}
+.btn.ghost{background:transparent;color:var(--cream);box-shadow:inset 0 0 0 1px rgba(244,238,226,.55)}
+.btn.outline{background:transparent;color:var(--moss-800);box-shadow:inset 0 0 0 1px var(--moss-700)}
+.btn.gold{background:transparent;color:var(--gold-soft);box-shadow:inset 0 0 0 1px var(--gold-soft)}
+.btn.small{padding:11px 20px;font-size:.68rem}
+
+/* ---------- Portada ---------- */
+.cover{position:fixed;inset:0;z-index:100;display:grid;place-items:center;
+  background:radial-gradient(ellipse at 50% 35%,#34432c 0%,#1f2a1b 55%,#10160d 100%);
+  transition:opacity .9s ease,visibility .9s;perspective:1400px}
+.cover.gone{opacity:0;visibility:hidden}
+.book{width:min(80vw,330px);aspect-ratio:3/4.2;position:relative;transform-style:preserve-3d}
+.book-cover{position:absolute;inset:0;border-radius:4px 14px 14px 4px;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0 1px,transparent 1px 3px),
+    linear-gradient(150deg,#7d8f64,#5d7048 55%,#48593a);
+  box-shadow:inset 6px 0 0 rgba(0,0,0,.18),inset 9px 0 0 rgba(255,255,255,.06),0 40px 70px -20px rgba(0,0,0,.8);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 26px;color:var(--cream);
+  transform-origin:left center;transition:transform 1.3s cubic-bezier(.6,.05,.3,1);backface-visibility:hidden}
+.book-cover::before{content:"";position:absolute;inset:16px;border:1px solid var(--gold-soft);border-radius:2px 8px 8px 2px;opacity:.85}
+.book-cover::after{content:"";position:absolute;inset:21px;border:1px solid var(--gold-soft);border-radius:1px 6px 6px 1px;opacity:.4}
+.book.open .book-cover{transform:rotateY(-160deg)}
+.book-page{position:absolute;inset:0;border-radius:4px 14px 14px 4px;background:var(--paper);box-shadow:0 40px 70px -20px rgba(0,0,0,.8);display:grid;place-items:center;text-align:center;padding:34px}
+.book-page p{font-family:var(--serif);font-style:italic;font-size:1.35rem;color:var(--ink-soft)}
+.cover-ears{width:92px;margin-bottom:18px;position:relative;z-index:1;color:var(--gold-soft)}
+.cover h1{font-size:2.9rem;font-style:italic;line-height:.95;color:var(--cream);position:relative;z-index:1;font-weight:400}
+.cover .sub{font-family:var(--sans);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;margin:18px 0 30px;opacity:.85;position:relative;z-index:1}
+.cover .btn{background:transparent;color:var(--gold-soft);box-shadow:inset 0 0 0 1px var(--gold-soft)}
+.tap-hint{margin-top:18px;font-family:var(--serif);font-style:italic;font-size:.9rem;opacity:.7;position:relative;z-index:1;animation:pulse 2.4s infinite}
+@keyframes pulse{50%{opacity:.3}}
+
+/* ---------- Luciérnagas ---------- */
+.fireflies{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.fireflies i{position:absolute;width:3px;height:3px;border-radius:50%;background:#f3e6b8;box-shadow:0 0 8px 2px rgba(243,230,184,.7);
+  animation:fly var(--d,9s) ease-in-out infinite, blink var(--b,2.5s) ease-in-out infinite;opacity:0}
+@keyframes fly{0%{transform:translate(0,0)}25%{transform:translate(var(--x1,30px),var(--y1,-40px))}50%{transform:translate(var(--x2,-20px),var(--y2,-80px))}75%{transform:translate(var(--x3,40px),var(--y3,-30px))}100%{transform:translate(0,0)}}
+@keyframes blink{0%,100%{opacity:0}50%{opacity:.9}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:100svh;color:var(--cream);text-align:center;
+  background:radial-gradient(ellipse at 50% 0%,#3b4b32 0%,#26321f 45%,#1f2a1b 100%);
+  padding:58px 26px 120px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.sign{position:relative;margin-bottom:26px;animation:sway 6s ease-in-out infinite;transform-origin:50% -30px}
+.sign::before,.sign::after{content:"";position:absolute;bottom:100%;width:1px;height:30px;background:var(--gold-soft);opacity:.6}
+.sign::before{left:22%;transform:rotate(14deg);transform-origin:bottom}
+.sign::after{right:22%;transform:rotate(-14deg);transform-origin:bottom}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(2deg)}}
+.sign .board{font-family:var(--serif);font-weight:500;font-size:.95rem;letter-spacing:.34em;padding:7px 12px 7px 18px;color:var(--gold-soft);
+  border:1px solid var(--gold-line);border-radius:3px;background:rgba(0,0,0,.12)}
+.sign .board br{display:none}
+.sign .post{display:none}
+.arch{position:relative;width:50%;max-width:200px;margin:0 auto 30px}
+.arch-icons{width:100%;aspect-ratio:4/5;border-radius:999px 999px 6px 6px;background:radial-gradient(ellipse at 50% 40%,rgba(214,191,143,.12),transparent 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--gold-soft);padding-top:12%}
+.arch-icons .ic{width:62px;height:40px;stroke-width:1.1}
+.arch-icons .or{font-family:var(--script);font-size:1.7rem;line-height:1;opacity:.85}
+.arch::before{content:"";position:absolute;inset:-9px;border:1px solid var(--gold-line);border-radius:999px 999px 10px 10px}
+.arch .spark{position:absolute;color:var(--gold-soft);width:18px;height:18px}
+.arch .spark.a{top:14%;left:-26px}.arch .spark.b{bottom:18%;right:-24px;width:12px;height:12px}
+.hero .eyebrow{color:var(--gold-soft)}
+.hero h1{font-size:clamp(2.3rem,10.5vw,2.9rem);line-height:1.02;margin:12px 0 4px;color:var(--cream);font-style:italic}
+.hero h1 .g{font-family:var(--script);font-style:normal;font-size:1.5em;color:var(--gold-soft);display:inline-block;line-height:.6;padding:0 .08em;vertical-align:-.06em}
+.hero .names{font-family:var(--script);font-size:2rem;color:var(--cream);margin:14px 0 4px;line-height:1.1}
+[data-cfg="dateLong"]{white-space:pre-line}
+.hero .date{font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;opacity:.85;line-height:2}
+.guest-hello{margin-top:18px;font-family:var(--serif);font-style:italic;font-size:1.05rem;padding:6px 18px;border-top:1px solid var(--gold-line);border-bottom:1px solid var(--gold-line);display:none}
+.guest-hello.show{display:inline-block}
+.hero .ctas{display:flex;flex-direction:column;gap:12px;margin-top:30px;width:100%;max-width:270px;position:relative;z-index:2}
+.hero .ctas .btn:first-child{background:var(--cream);color:var(--moss-800)}
+.hero .hills{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;pointer-events:none}
+.scroll-cue{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:2;color:var(--cream);font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;opacity:.7;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:6px}
+.scroll-cue span{display:block;width:1px;height:26px;background:linear-gradient(var(--cream),transparent);animation:drip 2s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- Secciones ---------- */
+section{padding:76px 26px;position:relative}
+.sec-head{text-align:center;margin-bottom:34px}
+.sec-head h2{font-size:2.35rem;color:var(--moss-800);margin-top:10px;font-weight:400}
+.sec-head h2 em{font-style:italic}
+.sec-head p:not(.eyebrow){font-family:var(--serif);font-style:italic;font-size:1.12rem;color:var(--ink-soft);margin-top:8px}
+.sprig{display:block;width:110px;height:22px;margin:16px auto 0;color:var(--gold)}
+.paper{background:var(--paper)}
+.cream{background:var(--cream)}
+.sage-wash{background:var(--sage-wash)}
+.dark{background:var(--moss-800);color:var(--cream)}
+.dark .sec-head h2{color:var(--cream)}
+.dark .sec-head p{color:rgba(244,238,226,.75)}
+.dark .eyebrow,.dark .sprig{color:var(--gold-soft)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 1s ease,transform 1s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- Cuenta regresiva ---------- */
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--gold-line);border-bottom:1px solid var(--gold-line);padding:18px 0}
+.cd{text-align:center;position:relative}
+.cd + .cd::before{content:"";position:absolute;left:0;top:18%;bottom:18%;width:1px;background:var(--gold-line)}
+.cd b{display:block;font-family:var(--serif);font-weight:400;font-size:2.5rem;line-height:1;color:var(--moss-800)}
+.cd small{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* ---------- Érase una vez ---------- */
+.chapter{display:flex;flex-direction:column;gap:22px;margin-bottom:54px}
+.frame{position:relative;width:74%;margin:0}
+.frame img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:999px 999px 4px 4px;filter:saturate(.85) sepia(.08);box-shadow:0 0 0 7px var(--cream),0 0 0 8px var(--gold-line)}
+.frame figcaption{font-family:var(--script);font-size:1.45rem;color:var(--gold);margin-top:20px;line-height:1}
+.chapter.left .frame{margin-left:8px}
+.chapter.right{align-items:flex-end}
+.chapter.right .frame{margin-right:8px;text-align:right}
+.chapter.right .txt{text-align:right}
+.chapter .txt h3{font-size:1.7rem;font-style:italic;color:var(--moss-800)}
+.chapter .txt p{font-family:var(--serif);font-size:1.16rem;line-height:1.55;color:var(--ink-soft);margin-top:8px}
+.dropcap::first-letter{font-family:var(--serif);float:left;font-size:3.9rem;line-height:.8;padding:6px 10px 0 0;color:var(--gold)}
+.and-then{text-align:center;background:var(--moss-800);color:var(--cream);border-radius:4px;padding:38px 26px;position:relative}
+.and-then::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold-line);border-radius:2px;pointer-events:none}
+.and-then h3{font-size:1.75rem;font-style:italic;color:var(--gold-soft)}
+.and-then p{font-family:var(--serif);font-size:1.15rem;margin-top:10px;opacity:.9}
+
+/* ---------- Teams ---------- */
+.teams{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.team{border-radius:200px 200px 14px 14px;padding:34px 12px 20px;text-align:center;position:relative;background:var(--paper);
+  box-shadow:inset 0 0 0 1px rgba(111,131,88,.28);transition:transform .35s, box-shadow .35s, background .35s}
+.team .emoji{display:block;margin:0 auto 12px;width:44px;height:44px}
+.team .emoji svg{width:100%;height:100%}
+.team.boy .emoji{color:var(--powder-deep)} .team.girl .emoji{color:var(--blush-deep)}
+.team h3{font-size:1.35rem;line-height:1.05;color:var(--moss-800)}
+.team h3 .t{display:block;font-family:var(--sans);font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.team p{font-family:var(--serif);font-style:italic;font-size:.98rem;color:var(--ink-soft);margin-top:6px;line-height:1.3}
+.team .bring{margin-top:14px;font-family:var(--sans);font-style:normal;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);border-top:1px solid var(--gold-line);padding-top:10px}
+.team:focus{outline:none}
+.team:focus-visible{outline:1px dashed var(--gold);outline-offset:4px}
+.team.selected{transform:translateY(-4px)}
+.team.boy.selected{background:#eef3f6;box-shadow:inset 0 0 0 1.5px var(--powder-deep),0 18px 30px -20px rgba(111,143,166,.9)}
+.team.girl.selected{background:#f8eeeb;box-shadow:inset 0 0 0 1.5px var(--blush-deep),0 18px 30px -20px rgba(185,128,122,.9)}
+.team .check{position:absolute;top:14px;left:50%;margin-left:-10px;width:20px;height:20px;border-radius:50%;background:var(--moss-800);color:var(--cream);font-size:.65rem;display:none;place-items:center}
+.team.selected .check{display:grid}
+.team-undecided{text-align:center;margin-top:22px;font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--ink-soft)}
+.team-note{text-align:center;margin-top:8px;font-size:.78rem;letter-spacing:.06em;min-height:1.5em;color:var(--sage-deep);font-weight:400}
+
+/* ---------- Ubicación ---------- */
+.map-card{background:var(--paper);border-radius:4px;overflow:hidden;box-shadow:var(--shadow);position:relative}
+.map-art{height:150px;position:relative;background:linear-gradient(180deg,#e9e6d6,#f1ecdf)}
+.map-art svg{position:absolute;inset:0;width:100%;height:100%}
+.map-body{padding:26px 22px 28px;text-align:center}
+.map-body .when{font-family:var(--sans);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);line-height:2;margin-bottom:10px}
+.map-body h3{font-size:1.75rem;color:var(--moss-800)}
+.map-body p{color:var(--ink-soft);font-family:var(--serif);font-size:1.1rem;margin-top:4px}
+.map-body .dress{font-family:var(--sans);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);margin:18px auto 22px;padding:10px 0;border-top:1px solid var(--gold-line);border-bottom:1px solid var(--gold-line);max-width:240px}
+.row-btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+
+/* ---------- Galería ---------- */
+.gallery{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 26px 22px;margin:0 -26px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.gallery::-webkit-scrollbar{display:none}
+.g-item{flex:0 0 74%;scroll-snap-align:center;margin:0;cursor:zoom-in}
+.g-item img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:999px 999px 4px 4px;filter:saturate(.85)}
+.g-item figcaption{text-align:center;font-family:var(--serif);font-style:italic;font-size:1.08rem;color:rgba(244,238,226,.85);margin-top:12px}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:6px}
+.dots i{width:5px;height:5px;border-radius:50%;background:rgba(244,238,226,.3);transition:all .3s}
+.dots i.on{background:var(--gold-soft);transform:scale(1.4)}
+.lightbox{position:fixed;inset:0;z-index:90;background:rgba(16,22,13,.95);display:none;place-items:center;padding:24px}
+.lightbox.show{display:grid}
+.lightbox img{max-height:82vh;border-radius:4px}
+.lightbox button{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;color:var(--cream);box-shadow:inset 0 0 0 1px rgba(244,238,226,.5);font-size:1rem}
+
+/* ---------- Regalos ---------- */
+.gifts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gift{background:var(--paper);border-radius:4px;padding:24px 12px 20px;text-align:center;box-shadow:inset 0 0 0 1px rgba(181,148,87,.3);transition:box-shadow .3s}
+.gift > span{display:block;width:34px;height:34px;margin:0 auto 10px;color:var(--gold)}
+.gift > span svg{width:100%;height:100%}
+.gift h3{font-size:1.35rem;color:var(--moss-800)}
+.gift p{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--ink-soft);margin-top:4px;line-height:1.3}
+.gift p b{font-style:normal;font-weight:500;color:var(--ink)}
+.gift.both{grid-column:1/-1}
+.gift.picked{box-shadow:inset 0 0 0 1.5px var(--sage-deep),0 14px 26px -20px rgba(31,42,27,.8)}
+.transfer{margin-top:14px;background:var(--moss-800);color:var(--cream);border-radius:4px;padding:34px 22px 26px;text-align:center;position:relative}
+.transfer::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold-line);border-radius:2px;pointer-events:none}
+.transfer .t-ico{display:block;width:32px;height:32px;margin:0 auto 8px;color:var(--gold-soft)}
+.transfer .t-ico svg{width:100%;height:100%}
+.transfer h3{font-size:1.6rem;font-style:italic;color:var(--cream)}
+.transfer p{font-family:var(--serif);font-size:1.05rem;opacity:.8;margin:8px 0 18px}
+.transfer dl{text-align:left;position:relative}
+.transfer dt{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-soft);margin-top:12px}
+.transfer dd{font-family:var(--serif);font-size:1.18rem;padding:2px 0 10px;border-bottom:1px solid rgba(214,191,143,.2);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.transfer dd:last-child{border:0}
+.copy{color:var(--gold-soft);box-shadow:inset 0 0 0 1px var(--gold-soft);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border-radius:999px;flex-shrink:0}
+.wand{margin-top:26px;text-align:center;font-family:var(--script);font-size:1.7rem;color:var(--gold)}
+
+/* ---------- RSVP ---------- */
+.rsvp-card{background:var(--paper);border-radius:4px;padding:36px 24px 30px;box-shadow:var(--shadow);position:relative}
+.rsvp-card::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold-line);border-radius:2px;pointer-events:none}
+.rsvp-card .hello{font-family:var(--script);font-size:2.3rem;color:var(--moss-800);text-align:center;line-height:1.1}
+.rsvp-card .hello-sub{text-align:center;color:var(--ink-soft);font-family:var(--serif);font-style:italic;font-size:1.05rem;margin:4px 0 26px}
+.field{margin-bottom:22px;position:relative}
+.field label,.field .lbl{display:block;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.field input{width:100%;font-family:var(--serif);font-size:1.25rem;padding:6px 2px 8px;border:0;border-bottom:1px solid var(--gold-line);background:transparent;color:var(--ink);outline:none;border-radius:0;transition:border-color .2s}
+.field input::placeholder{color:#b8b3a2;font-style:italic}
+.field input:focus{border-color:var(--moss-700)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.seg button{padding:13px 6px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--gold-line);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);transition:all .25s}
+.seg button.on{background:var(--moss-800);color:var(--cream);box-shadow:none}
+.unique{display:flex;gap:12px;align-items:flex-start;font-family:var(--serif);font-style:italic;font-size:1.02rem;line-height:1.4;color:var(--ink-soft);margin:6px 0 24px;padding:14px 4px;border-top:1px solid var(--gold-line);border-bottom:1px solid var(--gold-line)}
+.unique > span:first-child{flex-shrink:0;width:20px;height:20px;color:var(--gold);margin-top:2px}
+.unique svg{width:100%;height:100%}
+.unique b{font-style:normal;color:var(--ink)}
+.rsvp-card .btn{width:100%}
+.safe{text-align:center;font-size:.72rem;color:var(--ink-soft);margin-top:14px;letter-spacing:.04em}
+.err{color:#a3544d;font-size:.78rem;margin-top:6px;display:none}
+.err.show{display:block}
+.thanks{display:none;text-align:center;padding:10px 0;position:relative}
+.thanks.show{display:block}
+.thanks .big{width:40px;height:40px;margin:0 auto 6px;color:var(--gold)}
+.thanks .big svg{width:100%;height:100%}
+.thanks h3{font-family:var(--script);font-size:2.4rem;color:var(--moss-800)}
+.thanks p{font-family:var(--serif);font-style:italic;font-size:1.08rem;color:var(--ink-soft);margin-top:6px}
+
+/* ---------- Footer ---------- */
+footer{background:var(--moss-900);color:var(--cream);text-align:center;padding:70px 26px 120px;position:relative;overflow:hidden}
+footer .fin{font-family:var(--script);font-size:4rem;color:var(--gold-soft);line-height:1}
+footer .fin-sub{font-family:var(--serif);font-style:italic;font-size:1.2rem;margin-top:8px;opacity:.85}
+footer .fin-names{font-family:var(--script);font-size:1.9rem;margin-top:22px;opacity:1}
+footer .sig{margin-top:26px;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;opacity:.5}
+
+/* ---------- Botón flotante ---------- */
+.fab{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,120px);z-index:70;
+  transition:transform .5s cubic-bezier(.3,1.3,.5,1);width:calc(min(480px,100vw) - 52px)}
+.fab.show{transform:translate(-50%,0)}
+.fab.hide-rsvp{transform:translate(-50%,120px)}
+.fab .btn{width:100%;box-shadow:inset 0 0 0 1px var(--gold-line),0 16px 30px -12px rgba(0,0,0,.6)}
+
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:120}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- Íconos dibujados en línea -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sprig" viewBox="0 0 120 24"><g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><path d="M8 12 H52 M68 12 H112"/><path d="M24 12 q7-9 16-8 q-5 8-16 8z M24 12 q7 9 16 8 q-5-8-16-8z"/><path d="M96 12 q-7-9-16-8 q5 8 16 8z M96 12 q-7 9-16 8 q5-8 16-8z"/></g><circle cx="60" cy="12" r="2.4" fill="currentColor"/></symbol>
+  <symbol id="i-ears" viewBox="0 0 64 40"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 24 C6 22 3 12 7 7 C11 11 15 15 20 17"/><path d="M50 24 C58 22 61 12 57 7 C53 11 49 15 44 17"/><path d="M18 22 Q32 6 46 22 Q47 36 32 37 Q17 36 18 22Z"/><circle cx="26" cy="25" r="1.3" fill="currentColor"/><circle cx="38" cy="25" r="1.3" fill="currentColor"/><path d="M28 31 q4 3 8 0"/></g></symbol>
+  <symbol id="i-crown" viewBox="0 0 64 40"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 30 L8 10 L22 20 L32 6 L42 20 L56 10 L52 30 Z"/><path d="M12 35 H52"/><circle cx="8" cy="10" r="2"/><circle cx="32" cy="6" r="2"/><circle cx="56" cy="10" r="2"/><circle cx="32" cy="23" r="2.2"/></g></symbol>
+  <symbol id="i-pin" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 30 L27 11 a5 5 0 0 1 7 7 L16 36"/><path d="M8 30 a4 4 0 1 0 5 5"/><path d="M27 11 L31 7 l3 3 -3 4"/></g></symbol>
+  <symbol id="i-wipes" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="14" width="28" height="18" rx="4"/><path d="M14 14 q6-8 12 0"/><path d="M17 22 h6"/><path d="M26 6 c1 2 3 3 5 3 M31 3 v4"/></g></symbol>
+  <symbol id="i-both" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30 C4 23 4 14 10 12 c3-1 5 1 6 3 c1-2 3-4 6-3 c6 2 6 11-4 18"/><path d="M27 20 c1-2 3-3 5-2 c4 2 3 8-5 13"/></g></symbol>
+  <symbol id="i-gift" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="16" width="26" height="18" rx="1.5"/><path d="M5 11 h30 v5 H5z"/><path d="M20 11 v23"/><path d="M20 11 c-3-6-10-6-9-1 c1 3 6 2 9 1 c3 1 8 2 9-1 c1-5-6-5-9 1"/></g></symbol>
+  <symbol id="i-ticket" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8 a2 2 0 0 0 0 4 v0 a2 2 0 0 0 0 4 v2 h18 v-2 a2 2 0 0 1 0-4 a2 2 0 0 1 0-4 V6 H3z"/><path d="M15 6 v12" stroke-dasharray="1.5 2"/></g></symbol>
+  <symbol id="i-leaf" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 32 C8 16 18 8 33 7 C33 22 24 32 8 32Z"/><path d="M8 32 L24 16"/></g></symbol>
+  <symbol id="i-spark" viewBox="0 0 20 20"><path d="M10 0 C11 7 13 9 20 10 C13 11 11 13 10 20 C9 13 7 11 0 10 C7 9 9 7 10 0Z" fill="currentColor"/></symbol>
+</svg>
+
+<!-- ================= PORTADA (libro de cuento) ================= -->
+<div class="cover" id="cover">
+  <div class="fireflies" data-count="16"></div>
+  <div class="book" id="book">
+    <div class="book-page"><p>…y así comenzó un nuevo capítulo…</p></div>
+    <div class="book-cover">
+      <svg class="cover-ears" viewBox="0 0 64 40" aria-hidden="true"><use href="#i-ears"/></svg>
+      <h1>Once upon<br>a time</h1>
+      <p class="sub">Un pequeño ogro está en camino</p>
+      <button class="btn" id="openBook">📖 Open the fairy tale</button>
+      <p class="tap-hint">toca para comenzar</p>
+    </div>
+  </div>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<div class="app">
+
+  <!-- ================= HERO ================= -->
+  <header class="hero" id="inicio">
+    <div class="fireflies" data-count="20"></div>
+
+    <div class="sign"><div class="board">BEWARE<br></div><div class="post"></div></div>
+
+    <div class="arch">
+      <div class="arch-icons">
+        <svg class="ic" viewBox="0 0 64 40" aria-hidden="true"><use href="#i-ears"/></svg>
+        <span class="or">or</span>
+        <svg class="ic" viewBox="0 0 64 40" aria-hidden="true"><use href="#i-crown"/></svg>
+      </div>
+      <svg class="spark a" aria-hidden="true"><use href="#i-spark"/></svg>
+      <svg class="spark b" aria-hidden="true"><use href="#i-spark"/></svg>
+    </div>
+
+    <p class="eyebrow">Gender reveal</p>
+    <h1>A little <span class="g">ogre</span><br>is on the way</h1>
+    <p class="names" data-cfg="parents"></p>
+    <p class="date" data-cfg="dateLong"></p>
+    <p class="guest-hello" id="guestHello"></p>
+
+    <div class="ctas">
+      <a class="btn" href="#cuento">Ver la invitación</a>
+      <a class="btn ghost" href="#rsvp">Confirmar asistencia</a>
+    </div>
+
+    <svg class="hills" viewBox="0 0 480 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 70 Q120 40 240 64 T480 56 L480 120 L0 120Z" fill="#1f2a1b" opacity=".55"/>
+      <path d="M0 96 Q150 70 270 92 T480 86 L480 120 L0 120Z" fill="#1a2317"/>
+      <g fill="none" stroke="#6f8358" stroke-width="1.2" stroke-linecap="round" opacity=".7">
+        <path d="M34 118 C33 100 30 88 26 80"/><path d="M42 118 C42 100 44 90 47 82"/><path d="M446 118 C447 102 449 92 452 84"/><path d="M438 118 C437 104 434 94 430 88"/>
+      </g>
+      <g fill="#6f8358" opacity=".7"><ellipse cx="26" cy="79" rx="2.4" ry="6"/><ellipse cx="47" cy="81" rx="2.4" ry="6"/><ellipse cx="452" cy="83" rx="2.4" ry="6"/></g>
+    </svg>
+    <a class="scroll-cue" href="#cuenta">desliza<span></span></a>
+  </header>
+
+  <!-- ================= CUENTA REGRESIVA ================= -->
+  <section class="paper" id="cuenta">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Faltan solo</p>
+      <h2>Cuenta regresiva <em>al pantano</em></h2>
+    </div>
+    <div class="countdown reveal" id="countdown">
+      <div class="cd"><b id="cdD">00</b><small>días</small></div>
+      <div class="cd"><b id="cdH">00</b><small>horas</small></div>
+      <div class="cd"><b id="cdM">00</b><small>min</small></div>
+      <div class="cd"><b id="cdS">00</b><small>seg</small></div>
+    </div>
+  </section>
+
+  <!-- ================= ÉRASE UNA VEZ ================= -->
+  <section class="cream" id="cuento">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Capítulo I</p>
+      <h2><em>Érase una vez…</em></h2>
+      <svg class="sprig" aria-hidden="true"><use href="#i-sprig"/></svg>
+    </div>
+
+    <div class="chapter left reveal">
+      <figure class="frame"><img src="img/bebe-papa.jpg" alt="Papá de pequeño vestido de príncipe" loading="lazy"><figcaption>El príncipe (versión mini)</figcaption></figure>
+      <div class="txt">
+        <h3>…un pequeño príncipe</h3>
+        <p class="dropcap">Con capa dorada y corona de papel, juraba proteger su reino. Nadie imaginaba que, años después, cambiaría el castillo por un pantano… y sería feliz.</p>
+      </div>
+    </div>
+
+    <div class="chapter right reveal">
+      <figure class="frame"><img src="img/bebe-mama.jpg" alt="Mamá de pequeña montando un caballito de carrusel" loading="lazy"><figcaption>La princesa y su corcel</figcaption></figure>
+      <div class="txt">
+        <h3>…y una princesa aventurera</h3>
+        <p>Ella no esperaba en ninguna torre: montaba corceles mágicos y sonreía como quien ya sabe que el amor verdadero existe.</p>
+      </div>
+    </div>
+
+    <div class="and-then reveal">
+      <h3>…y vivieron felices para siempre</h3>
+      <p>Bueno, casi. Porque este cuento aún no termina: <br>¡ahora viene el capítulo más dulce de todos!</p>
+    </div>
+  </section>
+
+  <!-- ================= TEAMS ================= -->
+  <section class="sage-wash" id="team">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Haz tu apuesta</p>
+      <h2>¿De qué <em>team</em> eres?</h2>
+      <p>Elige tu corazonada: de eso depende qué regalo llevas 😏</p>
+    </div>
+    <div class="teams reveal">
+      <button class="team boy" data-team="shrek" aria-pressed="false">
+        <span class="check">✓</span>
+        <span class="emoji"><svg viewBox="0 0 64 40" aria-hidden="true"><use href="#i-ears"/></svg></span>
+        <h3><span class="t">Team</span>Mini Shrek</h3>
+        <p>Pequeño, valiente y de corazón gigante</p>
+        <p class="bring">Llevas: toallitas húmedas</p>
+      </button>
+      <button class="team girl" data-team="fiona" aria-pressed="false">
+        <span class="check">✓</span>
+        <span class="emoji"><svg viewBox="0 0 64 40" aria-hidden="true"><use href="#i-crown"/></svg></span>
+        <h3><span class="t">Team</span>Mini Fiona</h3>
+        <p>Dulce, valiente y llena de magia</p>
+        <p class="bring">Llevas: pañales</p>
+      </button>
+    </div>
+    <p class="team-undecided">¿Indeciso como Burro? 🫏 Lleva <b>las dos cosas</b> jaja</p>
+    <p class="team-note" id="teamNote"></p>
+  </section>
+
+  <!-- ================= UBICACIÓN ================= -->
+  <section class="paper" id="ubicacion">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Ubicación</p>
+      <h2><em>Muy, muy lejano…</em></h2>
+      <p>(bueno, no tanto 😅)</p>
+    </div>
+    <div class="map-card reveal">
+      <div class="map-art">
+        <svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <circle cx="330" cy="36" r="14" fill="#efe3c4"/>
+          <path d="M0 100 Q100 70 200 94 T400 86 L400 150 L0 150Z" fill="#c9d4b8"/>
+          <path d="M0 122 Q120 104 230 120 T400 114 L400 150 L0 150Z" fill="#9fb08a"/>
+          <path d="M52 136 C120 116 150 128 200 108 S290 84 318 70" fill="none" stroke="#b59457" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="1 7"/>
+          <g transform="translate(300,34)" fill="none" stroke="#6f8358" stroke-width="1.3" stroke-linejoin="round">
+            <path d="M6 30 h36 v28 h-36z"/><path d="M0 20 h12 v38 h-12z"/><path d="M36 20 h12 v38 h-12z"/>
+            <path d="M-1 20 L6 8 L13 20 M35 20 L42 8 L49 20"/><path d="M20 58 V48 q4-6 8 0 V58"/>
+          </g>
+          <g transform="translate(34,104)" fill="none" stroke="#6f8358" stroke-width="1.3" stroke-linejoin="round">
+            <path d="M0 32 C-1 16 4 5 15 0 C26 5 31 16 30 32Z"/><path d="M10 32 V23 q5-5 10 0 V32"/>
+          </g>
+          <g transform="translate(192,70)"><path d="M8 0 a8 8 0 0 1 8 8 c0 6-8 14-8 14 s-8-8-8-14 a8 8 0 0 1 8-8z" fill="#b9807a"/><circle cx="8" cy="8" r="2.6" fill="#fbf8f1"/></g>
+        </svg>
+      </div>
+      <div class="map-body">
+        <p class="when" data-cfg="dateLong"></p>
+        <h3 data-cfg="venueName"></h3>
+        <p data-cfg="venueAddress"></p>
+        <p class="dress">Dress code: <b>casual</b></p>
+        <div class="row-btns">
+          <a class="btn small" id="gmaps" target="_blank" rel="noopener">Google Maps</a>
+          <a class="btn outline small" id="waze" target="_blank" rel="noopener">Waze</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALERÍA ================= -->
+  <section class="dark" id="galeria">
+    <div class="fireflies" data-count="10"></div>
+    <div class="sec-head reveal">
+      <p class="eyebrow">Galería</p>
+      <h2>Shrek &amp; Fiona<br><em>de la vida real</em></h2>
+      <p>Desliza para ver más →</p>
+    </div>
+    <div class="gallery" id="gallery">
+      <figure class="g-item"><img src="img/pareja-1.jpg" alt="La pareja de blanco" loading="lazy"><figcaption>Amor verdadero, certificado ✨</figcaption></figure>
+      <figure class="g-item"><img src="img/pareja-3.jpg" alt="La pareja con lentes de sol" loading="lazy"><figcaption>Ogros de vacaciones ☀️</figcaption></figure>
+      <figure class="g-item"><img src="img/pareja-4.jpg" alt="La pareja con pijamas de esqueleto" loading="lazy"><figcaption>Te quiero hasta los huesos 💀</figcaption></figure>
+      <figure class="g-item"><img src="img/pareja-5.jpg" alt="Selfie de la pareja" loading="lazy"><figcaption>El guiño más ogro 😉</figcaption></figure>
+      <figure class="g-item"><img src="img/pareja-2.jpg" alt="La pareja con ropa verde" loading="lazy"><figcaption>Ya vestían de verde pantano 🟢</figcaption></figure>
+    </div>
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <!-- ================= REGALOS ================= -->
+  <section class="cream" id="regalos">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Regalos</p>
+      <h2>La lista del <em>Hada Madrina</em></h2>
+      <p>Tu regalo depende de tu corazonada 🔮</p>
+    </div>
+    <div class="gifts reveal">
+      <div class="gift fiona"><span><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#i-pin"/></svg></span><h3>Pañales</h3><p>Si crees que es <b>Mini Fiona</b></p></div>
+      <div class="gift shrek"><span><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#i-wipes"/></svg></span><h3>Toallitas húmedas</h3><p>Si crees que es <b>Mini Shrek</b></p></div>
+      <div class="gift both"><span><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#i-both"/></svg></span><h3>¡Las dos cosas!</h3><p>Si estás indeciso como Burro jaja</p></div>
+    </div>
+
+    <div class="transfer reveal">
+      <span class="t-ico"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#i-gift"/></svg></span>
+      <h3>Ayuda a los futuros papás ogros</h3>
+      <p>Si deseas acompañarnos con un detalle para este nuevo capítulo, también puedes hacerlo por transferencia:</p>
+      <dl>
+        <dt>Banco</dt><dd data-cfg="bank"></dd>
+        <dt>Tipo de cuenta</dt><dd data-cfg="bankType"></dd>
+        <dt>No. de cuenta</dt><dd><span data-cfg="bankAccount"></span> <button type="button" class="copy" id="copyAcc">Copiar</button></dd>
+        <dt>A nombre de</dt><dd data-cfg="bankHolder"></dd>
+      </dl>
+    </div>
+    <p class="wand">Bibbidi-bobbidi-pañal</p>
+  </section>
+
+  <!-- ================= RSVP ================= -->
+  <section class="sage-wash" id="rsvp">
+    <div class="sec-head reveal">
+      <p class="eyebrow">RSVP</p>
+      <h2>¿Vienes al <em>pantano</em>?</h2>
+    </div>
+    <div class="rsvp-card reveal">
+      <form id="rsvpForm" novalidate>
+        <p class="hello" id="rsvpHello">¡Hola, viajero!</p>
+        <p class="hello-sub" data-cfg="rsvpSub"></p>
+
+        <div class="field">
+          <label for="fName">Tu nombre</label>
+          <input id="fName" name="name" autocomplete="name" placeholder="Ej. Lord Farquaad">
+          <p class="err" id="errName">Necesitamos tu nombre, valiente viajero.</p>
+        </div>
+
+        <div class="field">
+          <span class="lbl">¿Asistirás?</span>
+          <div class="seg" id="segAttend">
+            <button type="button" data-v="si" class="on">¡Sí, ahí estaré!</button>
+            <button type="button" data-v="no">No podré</button>
+          </div>
+        </div>
+
+        <div class="unique"><span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ticket"/></svg></span><span>Esta invitación virtual es <b>única e intransferible</b> y es válida <b>solo para una persona</b>.</span></div>
+
+        <button class="btn" type="submit">Enviar confirmación</button>
+        <p class="safe" id="safeNote"></p>
+      </form>
+
+      <div class="thanks" id="thanks">
+        <div class="big"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#i-leaf"/></svg></div>
+        <h3>¡Gracias, viajero!</h3>
+        <p id="thanksMsg">Si WhatsApp no se abrió, toca el botón de nuevo.</p>
+        <p style="margin-top:18px"><button class="btn outline small" id="againBtn">Editar respuesta</button></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="fireflies" data-count="14"></div>
+    <p class="fin">Fin.</p>
+    <p class="fin-sub">…o mejor dicho, apenas el comienzo.</p>
+    <p class="fin-names" data-cfg="parents"></p>
+    <p class="sig">Hecho con amor en el pantano</p>
+  </footer>
+</div>
+
+<div class="fab" id="fab"><a class="btn" href="#rsvp">Confirmar asistencia</a></div>
+
+<div class="lightbox" id="lightbox"><button aria-label="Cerrar">✕</button><img alt=""></div>
+
+<script>
+/* =====================================================
+   ✏️ EDITA AQUÍ LOS DATOS DEL EVENTO
+   ===================================================== */
+const CONFIG = {
+  mom: "Majo",
+  dad: "Renzo",
+  // Fecha y hora (hora de Guatemala, -06:00)
+  start: "2026-10-30T18:00:00-06:00",
+  end:   "2026-10-30T21:00:00-06:00",
+  timeZone: "America/Guatemala",
+  venueName: "Kiosko Lomas de San Isidro",
+  venueAddress: "Área Social, zona 16, Ciudad de Guatemala",
+  mapsQuery: "Lomas de San Isidro zona 16 Guatemala",   // lo que se busca en Google Maps / Waze
+  parkingNote: "Llega con tiempo para encontrar parqueo (o ven en lomo de Burro).",
+  // URL de la Aplicación web de Google Apps Script (termina en /exec). Déjalo "" para no usar Google Sheets.
+  sheetUrl: "https://script.google.com/macros/s/AKfycbyTWNFPpj722x6ORteP8R1_35uCcQNY3p2bA2WoP1YrDS_LRpQVi0NSZDeS9v6LCC9K/exec",
+  whatsapp: "50230247042",                   // número con código de país (502), sin + ni espacios. Déjalo "" para no usar WhatsApp.
+  rsvpDeadline: "23 de octubre",             // ⚠️ confirma esta fecha límite
+  // Datos para transferencias
+  bank: "Banco Industrial (BI)",
+  bankType: "Ahorro",
+  bankAccount: "1714749",
+  bankHolder: "Renzo Alejandro Secaida o María José Cruz"
+};
+/* ===================================================== */
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const params = new URLSearchParams(location.search);
+const guestName = (params.get("n") || params.get("nombre") || "").trim();
+
+const startDate = new Date(CONFIG.start);
+const endDate = new Date(CONFIG.end);
+const fmtLong = startDate.toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: CONFIG.timeZone });
+const fmtT = d => d.toLocaleTimeString("es", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: CONFIG.timeZone }).replace(/\s?a\.?\s?m\.?/i, " am").replace(/\s?p\.?\s?m\.?/i, " pm");
+const fmtTime = `${fmtT(startDate)} – ${fmtT(endDate)}`;
+
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+};
+
+/* ---------- Rellenar textos ---------- */
+const texts = {
+  parents: `${CONFIG.mom} & ${CONFIG.dad}`,
+  dateLong: `${fmtLong.charAt(0).toUpperCase() + fmtLong.slice(1)}\n${fmtTime}`,
+  venueName: CONFIG.venueName,
+  venueAddress: CONFIG.venueAddress,
+  parkingNote: CONFIG.parkingNote,
+  rsvpSub: `Confírmanos antes del ${CONFIG.rsvpDeadline}`,
+  bank: CONFIG.bank,
+  bankType: CONFIG.bankType,
+  bankAccount: CONFIG.bankAccount,
+  bankHolder: CONFIG.bankHolder
+};
+$$("[data-cfg]").forEach(el => { const t = texts[el.dataset.cfg]; if (t) el.textContent = t; });
+
+if (guestName) {
+  $("#guestHello").textContent = `✨ Hola, ${guestName} — estás invitado/a ✨`;
+  $("#guestHello").classList.add("show");
+  $("#rsvpHello").textContent = `¡Hola, ${guestName}!`;
+  $("#fName").value = guestName;
+}
+
+/* ---------- Copiar número de cuenta ---------- */
+$("#copyAcc").addEventListener("click", async e => {
+  try { await navigator.clipboard.writeText(CONFIG.bankAccount); e.target.textContent = "¡Copiado!"; }
+  catch (err) { e.target.textContent = "Mantén presionado"; }
+  setTimeout(() => e.target.textContent = "Copiar", 2000);
+});
+
+/* ---------- Luciérnagas ---------- */
+$$(".fireflies").forEach(box => {
+  const n = +box.dataset.count || 12;
+  for (let i = 0; i < n; i++) {
+    const f = document.createElement("i");
+    const r = (a, b) => (Math.random() * (b - a) + a).toFixed(0);
+    f.style.left = r(0, 100) + "%"; f.style.top = r(5, 95) + "%";
+    f.style.setProperty("--d", r(7, 14) + "s");
+    f.style.setProperty("--b", r(2, 4) + "s");
+    ["x1","x2","x3"].forEach(k => f.style.setProperty("--" + k, r(-50, 50) + "px"));
+    ["y1","y2","y3"].forEach(k => f.style.setProperty("--" + k, r(-70, 20) + "px"));
+    f.style.animationDelay = `-${r(0, 10)}s, -${r(0, 4)}s`;
+    box.appendChild(f);
+  }
+});
+
+/* ---------- Abrir el libro ---------- */
+$("#openBook").addEventListener("click", () => {
+  $("#book").classList.add("open");
+  setTimeout(() => { $("#cover").classList.add("gone"); document.body.classList.remove("locked"); }, 1500);
+});
+
+/* ---------- Cuenta regresiva ---------- */
+const pad = n => String(n).padStart(2, "0");
+function tick() {
+  let diff = Math.max(0, startDate - new Date());
+  const d = Math.floor(diff / 864e5); diff -= d * 864e5;
+  const h = Math.floor(diff / 36e5); diff -= h * 36e5;
+  const m = Math.floor(diff / 6e4); diff -= m * 6e4;
+  const s = Math.floor(diff / 1e3);
+  $("#cdD").textContent = pad(d); $("#cdH").textContent = pad(h);
+  $("#cdM").textContent = pad(m); $("#cdS").textContent = pad(s);
+}
+tick(); setInterval(tick, 1000);
+
+/* ---------- Animaciones al hacer scroll ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
+$$(".reveal").forEach(el => io.observe(el));
+
+/* ---------- Botón flotante ---------- */
+const fab = $("#fab");
+const heroObs = new IntersectionObserver(([e]) => fab.classList.toggle("show", !e.isIntersecting), { threshold: .1 });
+heroObs.observe($("#inicio"));
+const rsvpObs = new IntersectionObserver(([e]) => fab.classList.toggle("hide-rsvp", e.isIntersecting), { threshold: .05 });
+rsvpObs.observe($("#rsvp"));
+
+/* ---------- Teams ---------- */
+let team = store.get("team") || "";
+if (!["shrek", "fiona", ""].includes(team)) team = "";
+const teamLabels = { shrek: "💙 Team Mini Shrek", fiona: "💗 Team Mini Fiona", "": "🫏 Indeciso como Burro" };
+const teamGift = { shrek: "🧻 toallitas húmedas", fiona: "🧷 pañales", "": "🧷 pañales y 🧻 toallitas húmedas" };
+function setTeam(t, fromUser) {
+  team = t; store.set("team", t);
+  $$(".team").forEach(b => { const on = b.dataset.team === t; b.classList.toggle("selected", on); b.setAttribute("aria-pressed", on); });
+  $$("#segTeam button").forEach(b => b.classList.toggle("on", b.dataset.v === t));
+  $$(".gift").forEach(g => g.classList.toggle("picked", g.classList.contains(t || "both")));
+  $("#teamNote").textContent = t ? `Tu apuesta: ${teamLabels[t]} → llevas ${teamGift[t]}` : "";
+  if ($("#bringHint")) $("#bringHint").textContent = `Te toca llevar: ${teamGift[t]}`;
+  if (fromUser && t) confetti(t === "shrek" ? ["#6f8fa6", "#d3dfe6", "#d6bf8f"] : ["#b9807a", "#ecd3cd", "#d6bf8f"], 90);
+}
+$$(".team").forEach(b => b.addEventListener("click", () => setTeam(team === b.dataset.team ? "" : b.dataset.team, true)));
+$$("#segTeam button").forEach(b => b.addEventListener("click", () => setTeam(b.dataset.v, false)));
+setTeam(team, false);
+
+/* ---------- Mapas ---------- */
+$("#gmaps").href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONFIG.mapsQuery)}`;
+$("#waze").href = `https://waze.com/ul?q=${encodeURIComponent(CONFIG.mapsQuery)}&navigate=yes`;
+
+/* ---------- Galería ---------- */
+const gal = $("#gallery"), items = $$(".g-item"), dots = $("#dots");
+items.forEach(() => dots.appendChild(document.createElement("i")));
+const setDot = () => {
+  const c = gal.scrollLeft + gal.clientWidth / 2;
+  let idx = 0, best = Infinity;
+  items.forEach((it, i) => { const d = Math.abs(it.offsetLeft + it.clientWidth / 2 - c); if (d < best) { best = d; idx = i; } });
+  [...dots.children].forEach((d, i) => d.classList.toggle("on", i === idx));
+};
+gal.addEventListener("scroll", setDot, { passive: true }); setDot();
+const lb = $("#lightbox");
+items.forEach(it => it.addEventListener("click", () => { lb.querySelector("img").src = it.querySelector("img").src; lb.classList.add("show"); }));
+lb.addEventListener("click", () => lb.classList.remove("show"));
+
+/* ---------- RSVP → WhatsApp ---------- */
+$("#safeNote").textContent = CONFIG.whatsapp
+  ? "Se abrirá WhatsApp con tu mensaje listo para enviar."
+  : "Tu respuesta llegará directo a los futuros papás ogros 💚";
+let attend = "si";
+$$("#segAttend button").forEach(b => b.addEventListener("click", () => {
+  attend = b.dataset.v;
+  $$("#segAttend button").forEach(x => x.classList.toggle("on", x === b));
+}));
+$("#rsvpForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = $("#fName").value.trim();
+  $("#errName").classList.toggle("show", !name);
+  if (!name) { $("#fName").focus(); return; }
+  const msg = $("#fMsg") ? $("#fMsg").value.trim() : "";
+  // Sin emojis: algunos WhatsApp (Web / escritorio) los muestran como �
+  const plainTeam = { shrek: "Team Mini Shrek", fiona: "Team Mini Fiona", "": "Indeciso/a" };
+  const plainGift = { shrek: "toallitas húmedas", fiona: "pañales", "": "pañales y toallitas húmedas" };
+  const lines = [
+    `*Confirmación – Gender Reveal ${CONFIG.mom} & ${CONFIG.dad}*`,
+    ``,
+    `*Nombre:* ${name}`,
+    `*Asistencia:* ${attend === "si" ? "¡Sí, ahí estaré!" : "No podré asistir"}`,
+    `*Corazonada:* ${plainTeam[team]}`,
+  ];
+  if (attend === "si") lines.push(`*Llevaré:* ${plainGift[team]}`);
+  if (msg) lines.push(`*Mensaje:* ${msg}`);
+  if (CONFIG.sheetUrl) {
+    // text/plain evita el preflight CORS; keepalive asegura el envío aunque se abra WhatsApp
+    fetch(CONFIG.sheetUrl, {
+      method: "POST", mode: "no-cors", keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        name, attend: attend === "si" ? "Sí" : "No", team: plainTeam[team],
+        gift: attend === "si" ? plainGift[team] : "", message: msg, invited: guestName
+      })
+    }).catch(() => {});
+  }
+  if (CONFIG.whatsapp) window.open(`https://api.whatsapp.com/send?phone=${CONFIG.whatsapp}&text=${encodeURIComponent(lines.join("\n"))}`, "_blank");
+  $("#rsvpForm").style.display = "none";
+  $("#thanks").classList.add("show");
+  const waNote = CONFIG.whatsapp ? " Solo falta que envíes el mensaje en WhatsApp." : "";
+  $("#thanksMsg").textContent = attend === "si"
+    ? "¡Nos vemos en el pantano!" + waNote
+    : "Te vamos a extrañar." + waNote;
+  if (attend === "si") confetti(["#9fb08a", "#d6bf8f", "#b59457", "#d3dfe6", "#ecd3cd"], 140);
+});
+$("#againBtn").addEventListener("click", () => { $("#thanks").classList.remove("show"); $("#rsvpForm").style.display = ""; });
+
+/* ---------- Confeti ---------- */
+function confetti(colors, count) {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = $("#confetti"), ctx = cv.getContext("2d"), dpr = window.devicePixelRatio || 1;
+  cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const shapes = ["🌿", null, null, null, null];
+  const ps = Array.from({ length: count }, () => ({
+    x: innerWidth / 2 + (Math.random() - .5) * 80, y: innerHeight * .55,
+    vx: (Math.random() - .5) * 12, vy: -Math.random() * 14 - 6,
+    r: Math.random() * 6 + 4, rot: Math.random() * 6, vr: (Math.random() - .5) * .3,
+    c: colors[Math.floor(Math.random() * colors.length)], e: shapes[Math.floor(Math.random() * shapes.length)]
+  }));
+  let frames = 0;
+  (function loop() {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    ps.forEach(p => {
+      p.vy += .35; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      if (p.e) { ctx.font = "18px serif"; ctx.fillText(p.e, -9, 6); }
+      else { ctx.fillStyle = p.c; ctx.fillRect(-p.r / 2, -p.r, p.r, p.r * 2); }
+      ctx.restore();
+    });
+    if (++frames < 200) requestAnimationFrame(loop); else ctx.clearRect(0, 0, innerWidth, innerHeight);
+  })();
+}
+</script>
+</body>
+</html>
